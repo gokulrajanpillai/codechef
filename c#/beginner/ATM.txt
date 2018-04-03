@@ -1,3 +1,5 @@
+// AUTHOR GOKULRAJANPILLAI
+
 using System;
 
 namespace ATM
@@ -6,6 +8,42 @@ namespace ATM
     {
         public static void Main(string[] args)
         {
+            decimal transactionFee = decimal.Parse("0.5");
+            decimal[] inputs = getInputs();
+            try
+            {
+
+                decimal amountToWithdraw = inputs[0], initialBalance = inputs[1];
+
+                if (Decimal.ToInt32(amountToWithdraw)%5 != 0 || (amountToWithdraw + transactionFee) > initialBalance)
+                {
+                    PrintDecimal(initialBalance);
+                }
+                else
+                {
+                    PrintDecimal(initialBalance - amountToWithdraw - transactionFee);
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.Write(e.Message);
+            }
+        }
+
+        private static void PrintDecimal(decimal dec)
+        {
+            Console.Write(dec.ToString("0.00"));
+        }
+
+        private static decimal[] getInputs()
+        {
+            decimal amountToWithdraw = 0, initialBalance = 0;
+            string input = Console.ReadLine();
+            string[] subStr = input.Split(' ');
+            amountToWithdraw = decimal.Parse(subStr[1]);
+            initialBalance = decimal.Parse(subStr[0]);
+            return new decimal[] { initialBalance, amountToWithdraw };
         }
     }
 }
